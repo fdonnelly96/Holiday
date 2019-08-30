@@ -39,6 +39,7 @@ namespace PublicHoliday
             return hol;
         }
 
+
         public static DateTime FindOccurrenceOfDayOfWeek(DateTime hol, DayOfWeek day, short occurance)
         {
             while (hol.DayOfWeek != day)
