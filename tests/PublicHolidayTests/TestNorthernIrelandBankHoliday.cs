@@ -10,14 +10,32 @@ namespace PublicHolidayTests
     [TestClass]
     public class TestNorthernIrelandBankHoliday
     {
+        /// <summary>
+        /// As St Patrick's falls on a Sunday
+        /// The following Monday will be the bank holiday
+        /// </summary>
         [TestMethod]
-        public void TestStPatricksDay2020()
+        public void TestIsStPatricksDayBankHoliday2019()
         {
-            var expected = new DateTime(2020, 3, 17);
-            var actual = NorthernIrelandBankHoliday.StPatricksDay(2020);
+            var expected = false;
+            var actual = new NorthernIrelandBankHoliday().IsBankHoliday(new DateTime(2019, 3, 17));
             Assert.AreEqual(expected, actual);
         }
 
+        /// <summary>
+        /// Regular check for St Patrick's day
+        /// </summary>
+        [TestMethod]
+        public void TestIsStPatricksDayBankHoliday2020()
+        {
+            var expected = true;
+            var actual = new NorthernIrelandBankHoliday().IsBankHoliday(new DateTime(2020, 3, 17));
+            Assert.AreEqual(expected, actual);
+        }
+
+        /// <summary>
+        /// Regular next day check
+        /// </summary>
         [TestMethod]
         public void TestNextWorkingDayAfterStPatricksDay2020()
         {
@@ -27,6 +45,10 @@ namespace PublicHolidayTests
             
         }
 
+        /// <summary>
+        /// As St Patrick's Day falls on the sunday,
+        /// Monday should be a bank holiday
+        /// </summary>
         [TestMethod]
         public void TestNextWorkingDayAfterStPatricksDay2019()
         {
@@ -36,15 +58,54 @@ namespace PublicHolidayTests
 
         }
 
+        /// <summary>
+        /// 12th falls on Friday, next working day is the following Monday
+        /// </summary>
         [TestMethod]
         public void TestNextWorkingDayAfteTwelfth2019()
         {
             var expected = new DateTime(2019, 7, 15);
             var actual = new NorthernIrelandBankHoliday().NextWorkingDay(new DateTime(2019, 7, 12));
             Assert.AreEqual(expected, actual);
-
         }
 
+        /// <summary>
+        /// Regular check for 12th July
+        /// </summary>
+        [TestMethod]
+        public void TestIsTwelfthBankHoliday()
+        {
+            var expected = true;
+            var actual = new NorthernIrelandBankHoliday().IsBankHoliday(new DateTime(2019, 7, 12));
+            Assert.AreEqual(expected, actual);
+        }
+
+        /// <summary>
+        /// Previous working day check
+        /// </summary>
+        [TestMethod]
+        public void TestPreviousWorkingDayStPatricks()
+        {
+            var expected = new DateTime(2019, 3, 15);
+            var actual = new NorthernIrelandBankHoliday().PreviousWorkingDay(new DateTime(2019, 3, 17));
+            Assert.AreEqual(expected, actual);
+        }
+
+        /// <summary>
+        /// Previous working day check
+        /// </summary>
+        [TestMethod]
+        public void TestPreviousWorkingDay12th()
+        {
+            var expected = new DateTime(2019, 7, 11);
+            var actual = new NorthernIrelandBankHoliday().PreviousWorkingDay(new DateTime(2019, 7, 14));
+            Assert.AreEqual(expected, actual);
+        }
+
+        /// <summary>
+        /// Count the number of bank holidays
+        /// with addition of NI holidays
+        /// </summary>
         [TestMethod]
         public void TestHolidayCount2019()
         {
@@ -52,6 +113,10 @@ namespace PublicHolidayTests
             Assert.AreEqual(bankHolidays.Count, 10);
         }
 
+        /// <summary>
+        /// Count the number of bank holidays
+        /// with addition of NI holidays
+        /// </summary>
         [TestMethod]
         public void TestHolidayCount2020()
         {
@@ -59,57 +124,15 @@ namespace PublicHolidayTests
             Assert.AreEqual(bankHolidays.Count, 10);
         }
 
-        /// <summary>
-        /// bhol with another following
-        /// </summary>
-        [TestMethod]
-        public void TestNextWorkingDayXmas()
-        {
-            var expected = new DateTime(2019, 12, 27);
-            var actual = new NorthernIrelandBankHoliday().NextWorkingDay(new DateTime(2019, 12, 25));
-            Assert.AreEqual(expected, actual);
-        }
-
-        /// <summary>
-        /// New Year is a Sunday, so bank holiday is Monday
-        /// </summary>
-        [TestMethod]
-        public void TestHolidayInLieu()
-        {
-            Assert.IsTrue(new UKBankHoliday().IsBankHoliday(new DateTime(2023, 1, 2)));
-        }
-
-        /// <summary>
-        /// New Year is a Sunday, so bank holiday is Monday and day after is normal day
-        /// </summary>
-        [TestMethod]
-        public void TestAfterHolidayInLieu()
-        {
-            Assert.IsFalse(new NorthernIrelandBankHoliday().IsBankHoliday(new DateTime(2019, 3, 19)));
-        }
-
-        /// <summary>
+        ///<summary>
         /// Test May Day in 2020 (Moved to the 8th/May)
         /// </summary>
         [TestMethod]
         public void TestMayDay2020IsNotMonday()
         {
-            var veDay = UKBankHoliday.MayDay(2020).GetValueOrDefault();
-            Assert.IsTrue(new UKBankHoliday().IsBankHoliday(veDay));
+            var veDay = NorthernIrelandBankHoliday.MayDay(2020).GetValueOrDefault();
+            Assert.IsTrue(new NorthernIrelandBankHoliday().IsBankHoliday(veDay));
         }
 
-        [TestMethod]
-        public void TestSummer2019()
-        {
-            var dt = UKBankHoliday.Summer(2019);
-            Assert.AreEqual(26, dt.Day);
-        }
-
-        [TestMethod]
-        public void TestSummer2020()
-        {
-            var dt = UKBankHoliday.Summer(2020);
-            Assert.AreEqual(31, dt.Day);
-        }
     }
 }

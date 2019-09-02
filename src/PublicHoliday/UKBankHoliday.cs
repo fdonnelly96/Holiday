@@ -241,7 +241,7 @@ namespace PublicHoliday
             return IsBankHoliday(dt, null);
         }
 
-        private static bool IsBankHoliday(DateTime dt, DateTime? easter)
+        protected static bool IsBankHoliday(DateTime dt, DateTime? easter)
         {
             int year = dt.Year;
             var date = dt.Date;
