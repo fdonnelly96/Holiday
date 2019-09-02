@@ -33,7 +33,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {599413CA-C18A-43DA-8520-332ACDB2BCFF}
+		SolutionGuid = {06E068B1-E012-40E7-9804-15214AD89DB2}
 	EndGlobalSection
 	GlobalSection(TestCaseManagementSettings) = postSolution
 		CategoryFile = PublicHoliday.vsmdi
